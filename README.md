@@ -7,3 +7,4 @@
 [20210312]predict後面7天 
 [20210312]  
 [20210312]方均根為304.9612084582683 
+[20210312]指令為 python app.py --training 2021年test.csv --output submission.csv  
