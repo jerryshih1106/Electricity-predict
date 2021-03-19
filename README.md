@@ -13,6 +13,7 @@ python app.py --training 2021年test.csv --output submission.csv
 新增另一個LSTM
 
 ![image](https://user-images.githubusercontent.com/66662065/111767403-a445f780-88e1-11eb-8250-6a31577684c0.png)
+
 以前面60天預測後7天
 將其與前面model合併      
 預測出的兩筆資料前多乘上一個參數整合   
