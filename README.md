@@ -25,7 +25,7 @@ python app.py --training 2021年test.csv --output submission.csv
 預測出的兩筆資料前多乘上一個參數整合   
 python app.py --training1 2021年test.csv --training2 J2021年test.csv --output submission.csv  
 
-![image](https://user-images.githubusercontent.com/66662065/111773972-cd6a8600-88e9-11eb-8f0e-607580b06d17.png)
+![image](https://user-images.githubusercontent.com/66662065/111779343-fa6e6700-88f0-11eb-921b-fce1f72284ca.png)
 
 RMSE:110.33170284218629 (3/9-3/15)      
 ---------------------------------------------------------------------[20210319] 
