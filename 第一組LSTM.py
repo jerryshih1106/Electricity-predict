@@ -71,7 +71,7 @@ def buildTestX(test):
 def buildTestY(test):
     y_test = []
     # y_test.append(np.array(test.iloc[0:150]))
-    y_test.append(np.array(test.iloc[201:261]))
+    y_test.append(np.array(test.iloc[226:260]))
     return np.array(y_test)
 
 def shuffle(X,Y):
@@ -157,7 +157,8 @@ if __name__ == '__main__':
     X_test = buildTestX(datatest_norm)
 #規一化資料集
     # X_test, Y_test = buildTest(datatest_norm)
-    # Y_test = buildTestY(Ydatatest)
+    Ydatatest_Aug = augFeatures(Ydatatest)
+    Y_test = buildTestY(Ydatatest_Aug)
 
 # Y_test = Y_test[:,:,np.newaxis]
     # Y_test = Y_test[:,:,np.newaxis]
@@ -165,8 +166,23 @@ if __name__ == '__main__':
     predicted_data = model.predict(X_test)
     predicted_data = pd.DataFrame(np.concatenate(predicted_data))
     predicted_data1 = denormalize(predicted_data)
-    y_hat = predicted_data1.iloc[0:60]
-    # y_hat1 = np.array(y_hat)[np.newaxis,:,:]
+    y_hat = predicted_data1.iloc[26:60].values
+    y_hat = pd.DataFrame(y_hat)
+    y_hat1 = np.array(y_hat)[np.newaxis,:,:]
+        #畫圖
+    Y_test = np.reshape(Y_test,(34,1))    
+    plt.xlabel('2021/01/01~2021/02/06', fontsize = 16)                        # 設定坐標軸標籤
+    plt.xticks(fontsize = 12)                                 # 設定坐標軸數字格式
+    plt.yticks(fontsize = 12)
+    # plt.grid(color = 'red', linestyle = '--', linewidth = 1)  # 設定格線顏色、種類、寬度
+    plt.ylim(2000, 4000)                                          # 設定y軸繪圖範圍
+# 繪圖並設定線條顏色、寬度、圖例
+    line1, = plt.plot(y_hat, color = 'red', linewidth = 3, label = 'predict')             
+    line2, = plt.plot(Y_test, color = 'blue', linewidth = 3, label = 'ground true')
+    plt.legend(handles = [line1, line2])
+    # plt.savefig('Fe_r_plot.svg')                              # 儲存圖片
+    # plt.savefig('Fe_r_plot.png')
+    plt.show()  
     # Y_test = pd.DataFrame(np.concatenate(Y_test))
     # realdata = denormalize(Y_test)
     # print(rmse(y_hat1,Y_test))

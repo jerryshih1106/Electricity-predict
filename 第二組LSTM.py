@@ -63,14 +63,14 @@ def JbuildTrainY(train, pastDay=60, futureDay=7):
 
 def JbuildTestX(test):
     x_test = []
-    x_test.append(np.array(test.iloc[14:74]))
+    x_test.append(np.array(test.iloc[9:69]))
     # y_test.append(np.array(test.iloc[150:157]["A"]))
     return np.array(x_test)
 
 def JbuildTestY(test):
     y_test = []
     # y_test.append(np.array(test.iloc[0:150]))
-    y_test.append(np.array(test.iloc[74:81]))
+    y_test.append(np.array(test.iloc[67:74]["A"]))
     return np.array(y_test)
 
 def shuffle(X,Y):
@@ -127,10 +127,10 @@ X_train, Y_train, X_val, Y_val = splitData(X_train, Y_train, 0.1)
 # Y_val = Y_val[:,:,np.newaxis]
 
 ## 訓練LSTM
-# model = buildManyToManyModel(X_train.shape)
-# callback = EarlyStopping(monitor="loss", patience=10, verbose=1, mode="auto")
-# model.fit(X_train, Y_train, epochs=1000, batch_size=32, validation_data=(X_val, Y_val), callbacks=[callback])
-# model.save('Jmy_model.h5')
+model = buildManyToManyModel(X_train.shape)
+callback = EarlyStopping(monitor="loss", patience=10, verbose=1, mode="auto")
+model.fit(X_train, Y_train, epochs=500, batch_size=32, validation_data=(X_val, Y_val), callbacks=[callback])
+model.save('Jmy_model.h5')
 
 
 
@@ -149,16 +149,17 @@ if __name__ == '__main__':
     model = load_model('Jmy_model.h5')
 
     # Ydatatest = readTrain(x='2021Y.csv')
-    Ydatatest = pd.read_csv('J2021Y.csv')
+    # Ydatatest = pd.read_csv('J2021Y.csv')
     # datatest = readTrain(x='2021年test.csv')
     datatest_Aug = augFeatures(datatest)
     datatest_norm = normalize(datatest_Aug)
 #原始測試資料集
+    # Ydatatest_Aug = augFeatures(Ydatatest)
     # x_test, y_test = buildTest(datatest_Aug)
     X_test = JbuildTestX(datatest_norm)
 #規一化資料集
     # X_test, Y_test = buildTest(datatest_norm)
-    Y_test = JbuildTestY(Ydatatest)
+    Y_test = JbuildTestY(datatest_Aug)
 
 # Y_test = Y_test[:,:,np.newaxis]
     # Y_test = Y_test[:,:,np.newaxis]
@@ -167,13 +168,29 @@ if __name__ == '__main__':
     predicted_data = pd.DataFrame(np.concatenate(predicted_data))
     predicted_data1 = Jdenormalize(predicted_data)
     y_hat = predicted_data1.iloc[0:7]
+    # y_hat = y_hat - 700
     y_hat1 = np.array(y_hat)[np.newaxis,:,:]
+    #畫圖===============================================================================
+    plt.xlabel('2021/03/09~2021/03/15', fontsize = 16)  
+    Y_test = np.reshape(Y_test,(7,1)) 
+    plt.xticks(fontsize = 12)                                 # 設定坐標軸數字格式
+    plt.yticks(fontsize = 12)
+    # plt.grid(color = 'red', linestyle = '--', linewidth = 1)  # 設定格線顏色、種類、寬度
+    plt.ylim(2000, 5000)                                          # 設定y軸繪圖範圍
+# 繪圖並設定線條顏色、寬度、圖例
+    line1, = plt.plot(y_hat, color = 'red', linewidth = 3, label = 'predict')             
+    line2, = plt.plot(Y_test, color = 'blue', linewidth = 3, label = 'ground true')
+    plt.legend(handles = [line1, line2])
+    # plt.savefig('Fe_r_plot.svg')                              # 儲存圖片
+    # plt.savefig('Fe_r_plot.png')
+    plt.show()  
+    #================================================================================
     # Y_test = pd.DataFrame(np.concatenate(Y_test))
     # realdata = denormalize(Y_test)
-    print(rmse(y_hat1,Y_test))
+    print(rmse(y_hat,Y_test))
     # model.train(df_training)
     # df_result = model.predict(n_step=7)
     # y_hat1 = DataFrame(y_hat,index = ['20210323','20210324','20210325','20210326','20210327','20210328','20210329'],columns=['0'])
-    y_hat.index = Series(['2021-03-23','2021-03-24','2021-03-25','2021-03-26','2021-03-27','2021-03-28','2021-03-29'])
+    # y_hat.index = Series(['2021-03-23','2021-03-24','2021-03-25','2021-03-26','2021-03-27','2021-03-28','2021-03-29'])
     # a
     y_hat.to_csv(args.output)

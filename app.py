@@ -27,8 +27,8 @@ def denormalize(train):
   denorm = train.apply(lambda x: x*(np.max(Ytrain.iloc[:,0])-np.min(Ytrain.iloc[:,0]))+np.min(Ytrain.iloc[:,0]))
   return denorm
 def add(a,b):
-    add = 1.7*a + 0.3*b
-    add = add/2 - 500
+    add = 1.5*a + 0.5*b
+    add = add/2 - 300
     return add
 #第二份資料的norm    
 def Jdenormalize(train):
@@ -108,6 +108,11 @@ def JbuildTestY(test):
     # y_test.append(np.array(test.iloc[0:150]))
     y_test.append(np.array(test.iloc[67:74]["A"]))
     return np.array(y_test)
+# def DateJbuildTestY(test):
+#     y_test = []
+#     # y_test.append(np.array(test.iloc[0:150]))
+#     y_test.append(np.array(test.iloc[67:74]))
+#     return np.array(y_test)
 #=======================================================================================
 
 
@@ -218,10 +223,32 @@ if __name__ == '__main__':
     # Y_test = pd.DataFrame(np.concatenate(Y_test))
     # realdata = denormalize(Y_test)
     print(rmse(final_pre,Y_test))
+
+    
     final_pre = pd.DataFrame(final_pre)
+    # Y_test = pd.DataFrame(Y_test)
+    y_test = JbuildTestY(Jdatatest)
+    y_test = np.reshape(y_test,(7,1))
+    y_test = pd.DataFrame(y_test)
     # model.train(df_training)
     # df_result = model.predict(n_step=7)
     # y_hat1 = DataFrame(y_hat,index = ['20210323','20210324','20210325','20210326','20210327','20210328','20210329'],columns=['0'])
-    final_pre.index = Series(['2021-03-23','2021-03-24','2021-03-25','2021-03-26','2021-03-27','2021-03-28','2021-03-29'])
-    # a
+    final_pre.index = Series(['03-23','03-24','03-25','03-26','03-27','03-28','03-29'])
+    y_test.index = Series(['03-23','03-24','03-25','03-26','03-27','03-28','03-29'])
+    # final_pre.index = Series(['03-09','03-10','03-11','03-12','03-13','03-14','03-15'])
+    # y_test.index = Series(['03-09','03-10','03-11','03-12','03-13','03-14','03-15'])
+    #畫圖
+    plt.xlabel('Date', fontsize = 16)                        # 設定坐標軸標籤
+    plt.xticks(fontsize = 12)                                 # 設定坐標軸數字格式
+    plt.yticks(fontsize = 12)
+    # plt.grid(color = 'red', linestyle = '--', linewidth = 1)  # 設定格線顏色、種類、寬度
+    plt.ylim(2000, 4000)                                          # 設定y軸繪圖範圍
+# 繪圖並設定線條顏色、寬度、圖例
+    line1, = plt.plot(final_pre, color = 'red', linewidth = 3, label = 'predict')             
+    line2, = plt.plot(y_test, color = 'blue', linewidth = 3, label = 'ground true')
+    plt.legend(handles = [line1, line2])
+    # plt.savefig('Fe_r_plot.svg')                              # 儲存圖片
+    # plt.savefig('Fe_r_plot.png')
+    plt.show()   
+
     final_pre.to_csv(args.output)
