@@ -6,6 +6,9 @@
 目前是以2021年的1/1到1/30做為測試資料   
 ![image](https://user-images.githubusercontent.com/66662065/111767372-9abc8f80-88e1-11eb-91c3-f194ed59b4d3.png)
 
+![image](https://user-images.githubusercontent.com/66662065/111776415-f2142d00-88ec-11eb-9bf6-b3a756f9d422.png)
+
+
 loss:0.0072, vl_loss: 0.0084  RMSE:304.9612084582683 (1/31-2/6)   
 python app.py --training 2021年test.csv --output submission.csv      
 ---------------------------------------------------------------------[20210312]   
