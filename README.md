@@ -17,6 +17,9 @@ python app.py --training 2021年test.csv --output submission.csv
 
 ![image](https://user-images.githubusercontent.com/66662065/111767403-a445f780-88e1-11eb-8250-6a31577684c0.png)
 
+![image](https://user-images.githubusercontent.com/66662065/111779183-c5faab00-88f0-11eb-8c1b-9269680feab3.png)
+
+
 以前面60天預測後7天
 將其與前面model合併      
 預測出的兩筆資料前多乘上一個參數整合   
