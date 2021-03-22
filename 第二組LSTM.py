@@ -23,6 +23,13 @@ def normalize(train):
   # print('已normalize')
   return train_norm
 
+# def normalize(train):
+#     train_norm = train.apply(lambda x : (x - np.min(train.iloc[:,0])/np.max(train.iloc[:,0])-np.min(train.iloc[:,0])))
+#     return train_norm
+
+# def Jdenormalize(train):
+#     denorm = train.apply(lambda x: ( x*(np.max(x) - np.min(x))+np.min(x)))
+#     return denorm
 def Jdenormalize(train):
   # denorm = train.apply(lambda x: x*(np.max(Ytrain.iloc[:,0])-np.min(Ytrain.iloc[:,0]))+np.min(Ytrain.iloc[:,0]))
   denorm = train.apply(lambda x: x*(np.max(train_Aug.iloc[:,0])-np.min(train_Aug.iloc[:,0]))+np.min(train_Aug.iloc[:,0]))
@@ -32,13 +39,13 @@ def Jdenormalize(train):
   return denorm
 
 #30天做為過去資料 30天作為欲預測資料
-def JbuildTrain(train, pastDay=60, futureDay=7):
+def JbuildTrain(train, pastDay=60, futureDay=8):
      X_train, Y_train = [], []
      for i in range(train.shape[0]-futureDay-pastDay):
          X_train.append(np.array(train.iloc[i:i+pastDay]))
          Y_train.append(np.array(train.iloc[i+pastDay:i+pastDay+futureDay]["A"]))
      return np.array(X_train), np.array(Y_train)
-def JbuildTrainX(train, pastDay=60, futureDay=7):
+def JbuildTrainX(train, pastDay=60, futureDay=8):
    X_train = []
 
    for i in range(train.shape[0]-futureDay-pastDay):
@@ -46,7 +53,7 @@ def JbuildTrainX(train, pastDay=60, futureDay=7):
     # Y_train.append(np.array(train.iloc[i+pastDay:i+pastDay+futureDay]["A"]))
    return np.array(X_train)
 
-def JbuildTrainY(train, pastDay=60, futureDay=7):
+def JbuildTrainY(train, pastDay=60, futureDay=8):
    Y_train = []
    for i in range(train.shape[0]-futureDay-pastDay+1):
     # X_train.append(np.array(train.iloc[i:i+pastDay]))
@@ -63,7 +70,7 @@ def JbuildTrainY(train, pastDay=60, futureDay=7):
 
 def JbuildTestX(test):
     x_test = []
-    x_test.append(np.array(test.iloc[9:69]))
+    x_test.append(np.array(test.iloc[20:80]))
     # y_test.append(np.array(test.iloc[150:157]["A"]))
     return np.array(x_test)
 
@@ -89,16 +96,18 @@ def splitData(X,Y,rate):
 
 def buildManyToManyModel(shape):
     model = Sequential()
+    # model.add(LSTM(50, input_length=shape[1], input_dim=shape[2]))
     model.add(LSTM(units = 50, input_length=shape[1], input_dim=shape[2], return_sequences=True))
-    model.add(Dropout(0.005))
-    model.add(LSTM(units = 50, input_length=shape[1], input_dim=shape[2], return_sequences=True))
-    model.add(Dropout(0.005))
-    # model.add(LSTM(units = 50, input_length=shape[1], input_dim=shape[2], return_sequences=True))
-    # model.add(Dropout(0.005))
-    # model.add(LSTM(units = 50, input_length=shape[1], input_dim=shape[2], return_sequences=True))
-    # model.add(Dropout(0.005))
-    model.add(LSTM(units = 50))
-    model.add(Dense(7))
+    model.add(Dropout(0.5))
+    model.add(LSTM(units = 40, input_length=shape[1], input_dim=shape[2], return_sequences=True))
+    model.add(Dropout(0.5))
+    model.add(LSTM(units = 30, input_length=shape[1], input_dim=shape[2], return_sequences=True))
+    model.add(Dropout(0.5))
+    model.add(LSTM(units = 20, input_length=shape[1], input_dim=shape[2], return_sequences=True))
+    model.add(Dropout(0.5))
+    model.add(LSTM(units = 10))
+    model.add(Dense(8))
+    # model.add(TimeDistributed(Dense(1)))
     # model.add(TimeDistributed(Dense(1)))
     model.compile(loss="mse", optimizer="adam")
     model.summary()
@@ -114,7 +123,7 @@ train_norm = normalize(train_Aug)
 # Ytrain_Aug = augFeatures(Ytrain)
 # Ytrain_norm = normalize(Ytrain)
 # change the last day and next day 
-X_train, Y_train = JbuildTrain(train_norm,60,7)
+X_train, Y_train = JbuildTrain(train_norm,60,8)
 # X_train = buildTrainX(train_norm, 150,7)
 # Y_train = buildTrainY(Ytrain_norm, 150,7)
 # X_train, Y_train = shuffle(X_train, Y_train)
@@ -126,10 +135,10 @@ X_train, Y_train, X_val, Y_val = splitData(X_train, Y_train, 0.1)
 # Y_train = Y_train[:,:,np.newaxis]
 # Y_val = Y_val[:,:,np.newaxis]
 
-## 訓練LSTM
+# 訓練LSTM
 model = buildManyToManyModel(X_train.shape)
 callback = EarlyStopping(monitor="loss", patience=10, verbose=1, mode="auto")
-model.fit(X_train, Y_train, epochs=500, batch_size=32, validation_data=(X_val, Y_val), callbacks=[callback])
+model.fit(X_train, Y_train, epochs=5000, batch_size=32, validation_data=(X_val, Y_val), callbacks=[callback])
 model.save('Jmy_model.h5')
 
 
@@ -167,7 +176,7 @@ if __name__ == '__main__':
     predicted_data = model.predict(X_test)
     predicted_data = pd.DataFrame(np.concatenate(predicted_data))
     predicted_data1 = Jdenormalize(predicted_data)
-    y_hat = predicted_data1.iloc[0:7]
+    y_hat = predicted_data1.iloc[1:8]
     # y_hat = y_hat - 700
     y_hat1 = np.array(y_hat)[np.newaxis,:,:]
     #畫圖===============================================================================

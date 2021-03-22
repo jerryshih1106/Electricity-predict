@@ -27,8 +27,8 @@ def denormalize(train):
   denorm = train.apply(lambda x: x*(np.max(Ytrain.iloc[:,0])-np.min(Ytrain.iloc[:,0]))+np.min(Ytrain.iloc[:,0]))
   return denorm
 def add(a,b):
-    add = 1.5*a + 0.5*b
-    add = add/2 - 300
+    add = 0.5*(a-100) + 1.5*(b-2000)
+    add = add/2  
     return add
 #第二份資料的norm    
 def Jdenormalize(train):
@@ -99,14 +99,15 @@ def JbuildTrainY(train, pastDay=60, futureDay=7):
 
 def JbuildTestX(test):
     x_test = []
-    x_test.append(np.array(test.iloc[9:69]))
+    #x_test.append(np.array(test.iloc[13:73]))#3/15~3/21前60天
+    x_test.append(np.array(test.iloc[20:80]))#3/23~3/30
     # y_test.append(np.array(test.iloc[150:157]["A"]))
     return np.array(x_test)
 
 def JbuildTestY(test):
     y_test = []
     # y_test.append(np.array(test.iloc[0:150]))
-    y_test.append(np.array(test.iloc[67:74]["A"]))
+    y_test.append(np.array(test.iloc[73:80]["A"]))#3/15~3/21
     return np.array(y_test)
 # def DateJbuildTestY(test):
 #     y_test = []
@@ -213,16 +214,17 @@ if __name__ == '__main__':
     Jpredicted_data = pd.DataFrame(np.concatenate(Jpredicted_data))
     predicted_data = denormalize(predicted_data)
     Jpredicted_data = Jdenormalize(Jpredicted_data)
-    y_hat = predicted_data.iloc[37:44]#3/9號~3/15
-    Jy_hat = Jpredicted_data.iloc[0:7]#3/9號~3/15
+    # y_hat = predicted_data.iloc[37:44]#3/9號~3/15
+    # Jy_hat = Jpredicted_data.iloc[0:7]#3/9號~3/15
+    # y_hat = predicted_data.iloc[43:50]#3/15~3/21
+    y_hat = predicted_data.iloc[51:58]#3/23~3/30
+    Jy_hat = Jpredicted_data.iloc[0:7]
     y_hat = np.array(y_hat)
     Jy_hat = np.array(Jy_hat)
     #兩個model參數調整
     final_pre = add(y_hat,Jy_hat)
-    # y_hat1 = np.array(y_hat)[np.newaxis,:,:]
-    # Y_test = pd.DataFrame(np.concatenate(Y_test))
-    # realdata = denormalize(Y_test)
-    print(rmse(final_pre,Y_test))
+
+    # print(rmse(final_pre,Y_test))
 
     
     final_pre = pd.DataFrame(final_pre)
