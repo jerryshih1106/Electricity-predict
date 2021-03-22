@@ -1,7 +1,9 @@
 ## run ##
 
-python app.py --training1 2021年test.csv --training2 J2021年test.csv --output submission.csv 
 
+```
+python app.py --training1 2021年test.csv --training2 J2021年test.csv --output submission.csv 
+```
 
 
 
