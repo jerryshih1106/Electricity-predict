@@ -1,3 +1,8 @@
+#run code
+
+python app.py --training1 2021年test.csv --training2 J2021年test.csv --output submission.csv 
+
+
 使用LSTM  
 將2019一月~2020十二月   
 全部的尖峰供電、負載、備轉容量、備轉容量率、工業用電以及民生用電整合  
@@ -23,7 +28,7 @@ python app.py --training 2021年test.csv --output submission.csv
 以前面60天預測後7天
 將其與前面model合併      
 預測出的兩筆資料前多乘上一個參數整合   
-python app.py --training1 2021年test.csv --training2 J2021年test.csv --output submission.csv  
+ 
 
 ![image](https://user-images.githubusercontent.com/66662065/111779343-fa6e6700-88f0-11eb-921b-fce1f72284ca.png)
 
