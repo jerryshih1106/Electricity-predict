@@ -1,77 +1,39 @@
-absl-py @ file:///C:/ci/absl-py_1615411229697/work
-aiohttp @ file:///C:/ci/aiohttp_1614361024229/work
-astunparse==1.6.3
-async-timeout==3.0.1
-attrs @ file:///tmp/build/80754af9/attrs_1604765588209/work
-blinker==1.4
-brotlipy==0.7.0
-cachetools @ file:///tmp/build/80754af9/cachetools_1611600262290/work
-certifi==2020.12.5
-cffi @ file:///C:/ci/cffi_1613247279197/work
-chardet @ file:///C:/ci/chardet_1605303225733/work
-click @ file:///home/linux1/recipes/ci/click_1610990599742/work
-coverage @ file:///C:/ci/coverage_1614615074147/work
-cryptography @ file:///C:/ci/cryptography_1615505468739/work
-cycler==0.10.0
-Cython @ file:///C:/ci/cython_1614014958194/work
-gast @ file:///tmp/build/80754af9/gast_1597433534803/work
-google-auth @ file:///tmp/build/80754af9/google-auth_1614883971544/work
-google-auth-oauthlib @ file:///tmp/build/80754af9/google-auth-oauthlib_1614894617465/work
-google-pasta==0.2.0
-grpcio @ file:///C:/ci/grpcio_1614884412260/work
-h5py==2.10.0
-idna @ file:///home/linux1/recipes/ci/idna_1610986105248/work
-importlib-metadata @ file:///tmp/build/80754af9/importlib-metadata_1602276842396/work
-Keras @ file:///tmp/build/80754af9/keras_split_1593112142734/work
-Keras-Applications @ file:///tmp/build/80754af9/keras-applications_1594366238411/work
-Keras-Preprocessing @ file:///tmp/build/80754af9/keras-preprocessing_1612283640596/work
-kiwisolver @ file:///C:/ci/kiwisolver_1612282606037/work
-Markdown @ file:///C:/ci/markdown_1614364121613/work
-matplotlib @ file:///C:/ci/matplotlib-suite_1613408055530/work
-mkl-fft==1.3.0
-mkl-random==1.1.1
-mkl-service==2.3.0
-multidict @ file:///C:/ci/multidict_1607362065515/work
-numpy @ file:///C:/ci/numpy_and_numpy_base_1603466732592/work
-oauthlib==3.1.0
-olefile==0.46
-opt-einsum==3.1.0
-pandas @ file:///C:/ci/pandas_1614711443373/work
-Pillow @ file:///C:/ci/pillow_1615224342392/work
-protobuf==3.14.0
-pyasn1==0.4.8
-pyasn1-modules==0.2.8
-pycparser @ file:///tmp/build/80754af9/pycparser_1594388511720/work
-PyJWT==1.7.1
-pyOpenSSL @ file:///tmp/build/80754af9/pyopenssl_1608057966937/work
-pyparsing @ file:///home/linux1/recipes/ci/pyparsing_1610983426697/work
-PyQt5==5.12
-PyQt5-sip==4.19.19
-pyqt5-tools==5.15.1.1.7.5
-PyQtWebEngine==5.12
-pyreadline==2.1
-PySocks @ file:///C:/ci/pysocks_1605287845585/work
-python-dateutil @ file:///home/ktietz/src/ci/python-dateutil_1611928101742/work
-python-dotenv==0.14.0
-pytz @ file:///tmp/build/80754af9/pytz_1612215392582/work
-PyYAML==5.4.1
-requests @ file:///tmp/build/80754af9/requests_1608241421344/work
-requests-oauthlib==1.3.0
-rsa @ file:///tmp/build/80754af9/rsa_1614366226499/work
-scipy @ file:///C:/ci/scipy_1614023125644/work
-sip==4.19.13
-six @ file:///C:/ci/six_1605187374963/work
-tensorboard @ file:///home/builder/ktietz/aggregate/tensorflow_recipes/ci_te/tensorboard_1614593728657/work/tmp_pip_dir
-tensorboard-plugin-wit==1.6.0
-tensorflow==2.3.0
-tensorflow-estimator @ file:///tmp/build/80754af9/tensorflow-estimator_1599136169057/work/whl_temp/tensorflow_estimator-2.3.0-py2.py3-none-any.whl
-termcolor==1.1.0
-tornado @ file:///C:/ci/tornado_1606942392901/work
-typing-extensions @ file:///tmp/build/80754af9/typing_extensions_1611751222202/work
-urllib3 @ file:///tmp/build/80754af9/urllib3_1611694770489/work
-Werkzeug @ file:///home/ktietz/src/ci/werkzeug_1611932622770/work
-win-inet-pton @ file:///C:/ci/win_inet_pton_1605306167264/work
-wincertstore==0.2
-wrapt==1.12.1
-yarl @ file:///C:/ci/yarl_1606940076464/work
-zipp @ file:///tmp/build/80754af9/zipp_1604001098328/work
+# This file may be used to create an environment using:
+# $ conda create --name <env> --file <this file>
+# platform: win-64
+pandas=1.2.3=py38hf11a4ad_0
+_tflow_select=2.3.0=eigen
+absl-py=0.12.0=py38haa95532_0
+cython=0.29.22=py38hd77b12b_0
+importlib-metadata=2.0.0=py_1
+intel-openmp=2020.2=254
+jpeg=9b=hb83a4c4_2
+keras=2.4.3=0
+keras-applications=1.0.8=py_1
+keras-base=2.4.3=py_0
+keras-preprocessing=1.1.2=pyhd3eb1b0_0
+markdown=3.3.4=py38haa95532_0
+matplotlib=3.3.4=py38haa95532_0
+matplotlib-base=3.3.4=py38h49ac443_0
+numpy=1.19.2=py38hadc3359_0
+numpy-base=1.19.2=py38ha3acd2a_0
+pip=20.2.3=py38_0
+protobuf=3.14.0=py38hd77b12b_1
+pyasn1=0.4.8=py_0
+pyasn1-modules=0.2.8=py_0
+pycparser=2.20=py_2
+pyjwt=1.7.1=py38_0
+pyopenssl=20.0.1=pyhd3eb1b0_1
+pyparsing=2.4.7=pyhd3eb1b0_0
+pyqt=5.9.2=py38ha925a31_4
+pyreadline=2.1=py38_1
+pysocks=1.7.1=py38haa95532_0
+python=3.8.5=h5fd99cc_1
+python-dateutil=2.8.1=pyhd3eb1b0_0
+pytz=2021.1=pyhd3eb1b0_0
+pyyaml=5.4.1=py38h2bbff1b_1
+tensorboard=2.4.0=pyhc547734_0
+tensorboard-plugin-wit=1.6.0=py_0
+tensorflow=2.3.0=mkl_py38h8c0d9a2_0
+tensorflow-base=2.3.0=eigen_py38h75a453f_0
+tensorflow-estimator=2.3.0=pyheb71bc4_0
