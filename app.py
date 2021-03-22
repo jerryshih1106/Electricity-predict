@@ -240,17 +240,17 @@ if __name__ == '__main__':
     # final_pre.index = Series(['03-09','03-10','03-11','03-12','03-13','03-14','03-15'])
     # y_test.index = Series(['03-09','03-10','03-11','03-12','03-13','03-14','03-15'])
     #畫圖
-    plt.xlabel('Date', fontsize = 16)                        # 設定坐標軸標籤
-    plt.xticks(fontsize = 12)                                 # 設定坐標軸數字格式
-    plt.yticks(fontsize = 12)
-    # plt.grid(color = 'red', linestyle = '--', linewidth = 1)  # 設定格線顏色、種類、寬度
-    plt.ylim(2000, 4000)                                          # 設定y軸繪圖範圍
-# 繪圖並設定線條顏色、寬度、圖例
-    line1, = plt.plot(final_pre, color = 'red', linewidth = 3, label = 'predict')             
-    line2, = plt.plot(y_test, color = 'blue', linewidth = 3, label = 'ground true')
-    plt.legend(handles = [line1, line2])
-    # plt.savefig('Fe_r_plot.svg')                              # 儲存圖片
-    # plt.savefig('Fe_r_plot.png')
-    plt.show()   
+#     plt.xlabel('Date', fontsize = 16)                        # 設定坐標軸標籤
+#     plt.xticks(fontsize = 12)                                 # 設定坐標軸數字格式
+#     plt.yticks(fontsize = 12)
+#     # plt.grid(color = 'red', linestyle = '--', linewidth = 1)  # 設定格線顏色、種類、寬度
+#     plt.ylim(2000, 4000)                                          # 設定y軸繪圖範圍
+# # 繪圖並設定線條顏色、寬度、圖例
+#     line1, = plt.plot(final_pre, color = 'red', linewidth = 3, label = 'predict')             
+#     line2, = plt.plot(y_test, color = 'blue', linewidth = 3, label = 'ground true')
+#     plt.legend(handles = [line1, line2])
+#     # plt.savefig('Fe_r_plot.svg')                              # 儲存圖片
+#     # plt.savefig('Fe_r_plot.png')
+#     plt.show()   
 
     final_pre.to_csv(args.output)
