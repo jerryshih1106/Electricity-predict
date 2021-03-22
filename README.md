@@ -2,6 +2,12 @@
 
 
 ```
+conda install --yes --file requirements.txt
+```
+
+
+
+```
 python app.py --training1 2021年test.csv --training2 J2021年test.csv --output submission.csv 
 ```
 
